@@ -3,6 +3,7 @@ name: ecommerce-platform
 services:
   gateway:
     build: ./gateway
+    dockerfile: Dockerfile
     environment:
       PORT: 3000
     ports:
