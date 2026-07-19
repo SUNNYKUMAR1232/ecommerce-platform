@@ -16,26 +16,41 @@ jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
         include:
           - language: javascript-typescript
             build-mode: none
+
           - language: python
             build-mode: none
+
           - language: java-kotlin
-            build-mode: autobuild
+            build-mode: manual
+
           - language: go
             build-mode: autobuild
+
           - language: csharp
             build-mode: autobuild
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
+
       - uses: github/codeql-action/autobuild@v3
         if: matrix.build-mode == 'autobuild'
+
+      - name: Build Java services
+        if: matrix.language == 'java-kotlin'
+        run: |
+          mvn -B -f auth-service/pom.xml clean package -DskipTests
+          mvn -B -f order-service/pom.xml clean package -DskipTests
+
       - uses: github/codeql-action/analyze@v3
