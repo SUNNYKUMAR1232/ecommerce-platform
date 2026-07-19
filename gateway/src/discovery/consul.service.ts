@@ -1,6 +1,16 @@
 import { env } from '@/config/env.js';
 
-import { ServiceInstance, ServiceName } from '@/types/intex.js';
+import type { ServiceInstance, ServiceName } from '@/types/intex.js';
+
+interface ConsulHealthServiceEntry {
+  Node?: {
+    Address?: string;
+  };
+  Service?: {
+    Address?: string;
+    Port?: number;
+  };
+}
 
 export class ConsulService {
   async getHealthyInstances(service: ServiceName): Promise<ServiceInstance[]> {
@@ -14,23 +24,21 @@ export class ConsulService {
       return [];
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as unknown as ConsulHealthServiceEntry[];
+    return data.flatMap((entry): ServiceInstance[] => {
+      const address = entry.Service?.Address ?? entry.Node?.Address;
+      const port = entry.Service?.Port;
 
-    return data
-      .map((entry: any) => {
-        const address = entry.Service?.Address ?? entry.Node?.Address;
+      if (!address || port === undefined) {
+        return [];
+      }
 
-        const port = entry.Service?.Port;
-
-        if (!address || !port) {
-          return null;
-        }
-
-        return {
+      return [
+        {
           address,
           port,
-        };
-      })
-      .filter(Boolean);
+        },
+      ];
+    });
   }
 }

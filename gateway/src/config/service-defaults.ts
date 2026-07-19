@@ -1,4 +1,4 @@
-import { ServiceName } from '@/types/intex.js';
+import type { ServiceName } from '@/types/intex.js';
 
 const serviceDefaults: Record<ServiceName, number> = {
   'auth-service': 8081,

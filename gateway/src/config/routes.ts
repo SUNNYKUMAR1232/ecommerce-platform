@@ -1,4 +1,4 @@
-import { RouteDefinition } from '@/types/intex.js';
+import type { RouteDefinition } from '@/types/intex.js';
 
 export const routeDefinitions: RouteDefinition[] = [
   { path: '/api/v1/auth', service: 'auth-service', requiresAuth: false },

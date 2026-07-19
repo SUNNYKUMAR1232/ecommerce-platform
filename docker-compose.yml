@@ -2,11 +2,13 @@ name: ecommerce-platform
 
 services:
   gateway:
-    build: ./gateway
-    environment:
-      PORT: 3000
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
     ports:
       - '3000:3000'
+    environment:
+      PORT: 3000
 
   auth-service:
     build: ./auth-service
