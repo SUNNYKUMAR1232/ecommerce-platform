@@ -23,4 +23,4 @@ async fn main() {
 
 async fn health() -> &'static str {
     "OK"
-} 
+}
