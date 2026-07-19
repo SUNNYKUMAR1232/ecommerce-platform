@@ -18,15 +18,30 @@ jobs:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment: development
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: azure/setup-kubectl@v4
+
       - name: Configure kubeconfig
+        env:
+          DEV_KUBECONFIG: ${{ secrets.DEV_KUBECONFIG }}
         run: |
           mkdir -p "$HOME/.kube"
-          echo "${{ secrets.DEV_KUBECONFIG }}" | base64 --decode > "$HOME/.kube/config"
+          echo "$DEV_KUBECONFIG" | base64 --decode > "$HOME/.kube/config"
+          chmod 600 "$HOME/.kube/config"
+
+      - name: Verify cluster connection
+        run: |
+          kubectl config current-context
+          kubectl cluster-info
+          kubectl get nodes
+
       - name: Deploy manifests
-        run: kubectl apply -f k8s/phase-2
+        run: |
+          kubectl apply -f k8s/phase-2
+
       - name: Smoke test
         run: |
           kubectl -n ecommerce rollout status deployment/gateway --timeout=180s
