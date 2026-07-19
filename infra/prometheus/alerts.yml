@@ -1,0 +1,20 @@
+groups:
+  - name: ecommerce-infra-alerts
+    rules:
+      - alert: GatewayUnhealthy
+        expr: up{job="gateway"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Gateway is down
+          description: API gateway health endpoint is not reachable.
+
+      - alert: HighContainerCPU
+        expr: rate(process_cpu_seconds_total[5m]) > 0.9
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: High CPU usage
+          description: One or more components are consuming high CPU.

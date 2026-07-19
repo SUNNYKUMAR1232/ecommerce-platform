@@ -1,0 +1,8 @@
+node_modules
+dist
+build
+target
+bin
+obj
+.venv
+plan

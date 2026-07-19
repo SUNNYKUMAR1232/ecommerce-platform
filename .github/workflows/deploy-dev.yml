@@ -1,0 +1,33 @@
+name: Deploy Development
+
+on:
+  workflow_run:
+    workflows:
+      - Docker
+    types:
+      - completed
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-kubectl@v4
+      - name: Configure kubeconfig
+        run: |
+          mkdir -p "$HOME/.kube"
+          echo "${{ secrets.DEV_KUBECONFIG }}" | base64 --decode > "$HOME/.kube/config"
+      - name: Deploy manifests
+        run: kubectl apply -f k8s/phase-2
+      - name: Smoke test
+        run: |
+          kubectl -n ecommerce rollout status deployment/gateway --timeout=180s
+          kubectl -n ecommerce get pods

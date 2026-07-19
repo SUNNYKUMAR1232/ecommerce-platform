@@ -1,0 +1,66 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /gateway
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /cart-service
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /notification-service
+    schedule:
+      interval: weekly
+  - package-ecosystem: maven
+    directory: /auth-service
+    schedule:
+      interval: weekly
+  - package-ecosystem: maven
+    directory: /order-service
+    schedule:
+      interval: weekly
+  - package-ecosystem: gomod
+    directory: /product-service
+    schedule:
+      interval: weekly
+  - package-ecosystem: gomod
+    directory: /shipping-service
+    schedule:
+      interval: weekly
+  - package-ecosystem: cargo
+    directory: /analytics-service
+    schedule:
+      interval: weekly
+  - package-ecosystem: cargo
+    directory: /inventory-service
+    schedule:
+      interval: weekly
+  - package-ecosystem: cargo
+    directory: /payment-service
+    schedule:
+      interval: weekly
+  - package-ecosystem: pip
+    directory: /recommendation-service
+    schedule:
+      interval: weekly
+  - package-ecosystem: pip
+    directory: /review-service
+    schedule:
+      interval: weekly
+  - package-ecosystem: pip
+    directory: /search-service
+    schedule:
+      interval: weekly
+  - package-ecosystem: nuget
+    directory: /user-service
+    schedule:
+      interval: weekly

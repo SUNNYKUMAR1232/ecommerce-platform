@@ -1,0 +1,100 @@
+name: ecommerce-platform
+
+services:
+  gateway:
+    build: ./gateway
+    environment:
+      PORT: 3000
+    ports:
+      - '3000:3000'
+
+  auth-service:
+    build: ./auth-service
+    environment:
+      SERVER_PORT: 8081
+    ports:
+      - '8081:8081'
+
+  user-service:
+    build: ./user-service
+    environment:
+      ASPNETCORE_URLS: http://+:8082
+    ports:
+      - '8082:8082'
+
+  product-service:
+    build: ./product-service
+    environment:
+      PORT: 8083
+    ports:
+      - '8083:8083'
+
+  inventory-service:
+    build: ./inventory-service
+    environment:
+      PORT: 8084
+    ports:
+      - '8084:8084'
+
+  cart-service:
+    build: ./cart-service
+    environment:
+      PORT: 8085
+    ports:
+      - '8085:8085'
+
+  order-service:
+    build: ./order-service
+    environment:
+      SERVER_PORT: 8086
+    ports:
+      - '8086:8086'
+
+  payment-service:
+    build: ./payment-service
+    environment:
+      PORT: 8087
+    ports:
+      - '8087:8087'
+
+  shipping-service:
+    build: ./shipping-service
+    environment:
+      PORT: 8088
+    ports:
+      - '8088:8088'
+
+  review-service:
+    build: ./review-service
+    environment:
+      PORT: 8089
+    ports:
+      - '8089:8089'
+
+  notification-service:
+    build: ./notification-service
+    environment:
+      PORT: 8090
+    ports:
+      - '8090:8090'
+
+  search-service:
+    build: ./search-service
+    environment:
+      PORT: 8091
+    ports:
+      - '8091:8091'
+
+  recommendation-service:
+    build: ./recommendation-service
+    environment:
+      PORT: 8092
+    ports:
+      - '8092:8092'
+
+  analytics-service:
+    build: ./analytics-service
+    environment:
+      PORT: 8093
+    ports:
+      - '8093:8093'

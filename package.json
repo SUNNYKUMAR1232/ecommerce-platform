@@ -1,0 +1,27 @@
+{
+  "name": "ecommerce-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Production-grade e-commerce platform monorepo.",
+  "scripts": {
+    "format": "prettier --write \"**/*.{json,md,yml,yaml,js,ts,tsx,css,html}\"",
+    "format:check": "prettier --check \"**/*.{json,md,yml,yaml,js,ts,tsx,css,html}\"",
+    "lint": "npm run lint --workspace gateway && npm run lint --workspace cart-service && npm run lint --workspace notification-service",
+    "test:phase1": "powershell -ExecutionPolicy Bypass -File scripts/phase1-smoke-test.ps1",
+    "infra:up": "powershell -ExecutionPolicy Bypass -File scripts/phase-2-up.ps1",
+    "infra:down": "powershell -ExecutionPolicy Bypass -File scripts/phase-2-down.ps1",
+    "infra:k8s:up": "powershell -ExecutionPolicy Bypass -File scripts/phase-2-k8s-up.ps1",
+    "infra:k8s:down": "powershell -ExecutionPolicy Bypass -File scripts/phase-2-k8s-down.ps1",
+    "test:phase-2": "powershell -ExecutionPolicy Bypass -File scripts/phase-2-smoke-test.ps1",
+    "prepare": "husky"
+  },
+  "workspaces": [
+    "gateway",
+    "cart-service",
+    "notification-service"
+  ],
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "prettier": "^3.3.3"
+  }
+}

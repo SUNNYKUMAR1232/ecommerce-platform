@@ -1,0 +1,23 @@
+{
+  "name": "@ecom/shared",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared contracts and utilities for all services.",
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./common": "./src/common/index.ts",
+    "./logging": "./src/logging/index.ts",
+    "./configuration": "./src/configuration/index.ts",
+    "./events": "./src/events/index.ts",
+    "./api-contracts": "./src/api-contracts/index.ts",
+    "./authentication": "./src/authentication/index.ts",
+    "./authorization": "./src/authorization/index.ts",
+    "./validation": "./src/validation/index.ts",
+    "./utilities": "./src/utilities/index.ts",
+    "./exceptions": "./src/exceptions/index.ts",
+    "./constants": "./src/constants/index.ts",
+    "./models": "./src/models/index.ts"
+  }
+}

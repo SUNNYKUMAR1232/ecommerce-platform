@@ -1,0 +1,30 @@
+name: Deploy Staging
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: Image tag to deploy
+        required: true
+        default: latest
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-kubectl@v4
+      - name: Configure kubeconfig
+        run: |
+          mkdir -p "$HOME/.kube"
+          echo "${{ secrets.STAGING_KUBECONFIG }}" | base64 --decode > "$HOME/.kube/config"
+      - name: Deploy manifests
+        run: kubectl apply -f k8s/phase-2
+      - name: Smoke test
+        run: |
+          kubectl -n ecommerce rollout status deployment/gateway --timeout=180s
+          kubectl -n ecommerce get pods
