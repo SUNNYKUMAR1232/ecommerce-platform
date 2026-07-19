@@ -187,7 +187,10 @@ jobs:
       - name: Validate compose files
         run: |
           docker compose -f docker-compose.yml config
-          docker compose -f docker-compose.yml -f docker-compose.phase-2.yml config
+          docker compose \
+            -f docker-compose.yml \
+            -f docker-compose.phase-2.yml \
+            config
 
   secrets:
     name: Secret scan
