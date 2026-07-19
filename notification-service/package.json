@@ -17,7 +17,7 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.9.0",
+    "@eslint/js": "^10.0.1",
     "@types/node": "^22.5.0",
     "eslint": "^9.9.0",
     "tsx": "^4.19.0",
