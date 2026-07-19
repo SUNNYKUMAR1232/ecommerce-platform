@@ -1,7 +1,8 @@
-name: ecommerce-platform-phase-2
-
 services:
   gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
     environment:
       NODE_ENV: development
       PORT: ${GATEWAY_PORT:-3000}
