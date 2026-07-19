@@ -1,16 +1,16 @@
 import express from 'express';
 import helmet from 'helmet';
 
-import { corsMiddleware } from './middleware/cors.middleware';
-import { rateLimiter } from './middleware/rate-limit.middleware';
-import { requestIdMiddleware } from './middleware/request-id.middleware';
-import { contentTypeMiddleware } from './middleware/content-type.middleware';
-import { loggerMiddleware } from './middleware/logger.middleware';
-import { notFoundMiddleware } from './middleware/not-found.middleware';
+import { corsMiddleware } from './middleware/cors.middleware.js';
+import { rateLimiter } from './middleware/rate-limit.middleware.js';
+import { requestIdMiddleware } from './middleware/request-id.middleware.js';
+import { contentTypeMiddleware } from './middleware/content-type.middleware.js';
+import { loggerMiddleware } from './middleware/logger.middleware.js';
+import { notFoundMiddleware } from './middleware/not-found.middleware.js';
 
-import healthRouter from './health/health.routes';
+import healthRouter from './health/health.routes.js';
 
-import { registerGatewayRoutes } from './gateway/route.registrar';
+import { registerGatewayRoutes } from './gateway/route.registrar.js';
 
 const app = express();
 
