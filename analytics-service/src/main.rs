@@ -11,8 +11,12 @@ async fn health() -> impl Responder {
 async fn main() -> std::io::Result<()> {
     let port = env::var("PORT").unwrap_or_else(|_| "8093".to_string());
 
-    HttpServer::new(|| App::new().service(health).app_data(web::JsonConfig::default()))
-        .bind(("0.0.0.0", port.parse::<u16>().expect("valid port")))?
-        .run()
-        .await
+    HttpServer::new(|| {
+        App::new()
+            .service(health)
+            .app_data(web::JsonConfig::default())
+    })
+    .bind(("0.0.0.0", port.parse::<u16>().expect("valid port")))?
+    .run()
+    .await
 }
