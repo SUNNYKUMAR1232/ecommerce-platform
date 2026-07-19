@@ -25,7 +25,7 @@ jobs:
           - language: python
             build-mode: none
           - language: java-kotlin
-            build-mode: autobuild
+            build-mode: manual
           - language: go
             build-mode: autobuild
           - language: csharp
@@ -36,6 +36,17 @@ jobs:
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
+      - uses: actions/setup-java@v4
+        if: matrix.language == 'java-kotlin'
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+      - name: Build Java services
+        if: matrix.language == 'java-kotlin'
+        run: |
+          mvn --batch-mode -f auth-service/pom.xml -DskipTests package
+          mvn --batch-mode -f order-service/pom.xml -DskipTests package
       - uses: github/codeql-action/autobuild@v3
         if: matrix.build-mode == 'autobuild'
       - uses: github/codeql-action/analyze@v3
